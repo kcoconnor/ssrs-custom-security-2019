@@ -39,112 +39,35 @@ using System.Globalization;
 
 namespace Microsoft.Samples.ReportingServices.CustomSecurity
 {
-   public class Logon : System.Web.UI.Page
-   {
-      protected System.Web.UI.WebControls.Label LblUser;
-      protected System.Web.UI.WebControls.TextBox TxtPwd;
-      protected System.Web.UI.WebControls.TextBox TxtUser;
-      protected System.Web.UI.WebControls.Button BtnRegister;
-      protected System.Web.UI.WebControls.Button BtnLogon;
-      protected System.Web.UI.WebControls.Label lblMessage;
-      protected System.Web.UI.WebControls.Label Label1;
-      protected System.Web.UI.WebControls.Label LblPwd;
+    public class Logon : System.Web.UI.Page
+    {
+        protected System.Web.UI.WebControls.Label lblMessage;
+        protected System.Web.UI.WebControls.Label Label1;
 
-      private void Page_Load(object sender, System.EventArgs e)
-      {
+        private void Page_Load(object sender, System.EventArgs e)
+        {
             // Design decision: 
             // * When the request comes with a query string (returnUrl), we log the user in anonymously and automatically.
             // * When the request comes without a query string, we show the logon page.
-            if (Request.QueryString.HasKeys())
+            // if (Request.QueryString.HasKeys())
             {
                 FormsAuthentication.RedirectFromLoginPage(Properties.Settings.Default.AnonymousUser, false);
             }
         }
 
-      #region Web Form Designer generated code
-      override protected void OnInit(EventArgs e)
-      {
+        #region Web Form Designer generated code
+        override protected void OnInit(EventArgs e)
+        {
             InitializeComponent();
             base.OnInit(e);
-      }
-      
-      private void InitializeComponent()
-      {    
-         this.BtnLogon.Click += new System.EventHandler(this.ServerBtnLogon_Click);
-         this.BtnRegister.Click += new System.EventHandler(this.BtnRegister_Click);
-         this.Load += new System.EventHandler(this.Page_Load);
+        }
 
-      }
-      #endregion
+        private void InitializeComponent()
+        {
+            this.Load += new System.EventHandler(this.Page_Load);
 
-       [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
-      private void BtnRegister_Click(object sender, 
-         System.EventArgs e)
-      {
-         string salt = AuthenticationUtilities.CreateSalt(5);
-         string passwordHash =
-            AuthenticationUtilities.CreatePasswordHash(TxtPwd.Text, salt);
-         if (AuthenticationUtilities.ValidateUserName(TxtUser.Text))
-         {
-            try
-            {
-               AuthenticationUtilities.StoreAccountDetails(
-                  TxtUser.Text, passwordHash, salt);
-            }
-            catch(Exception ex)
-            {
-              lblMessage.Text = string.Format(CultureInfo.InvariantCulture, ex.Message);
-            }
-         }
-         else
-         {
+        }
+        #endregion
 
-           lblMessage.Text = string.Format(CultureInfo.InvariantCulture,
-               Logon_aspx.UserNameError);
-         }
-      }
-
-       [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes")]
-      private void ServerBtnLogon_Click(object sender, 
-         System.EventArgs e)
-      {
-         bool passwordVerified = false;
-         try
-         {
-            passwordVerified = 
-               AuthenticationUtilities.VerifyPassword(TxtUser.Text,TxtPwd.Text);
-            if (passwordVerified)
-            {
-               FormsAuthentication.RedirectFromLoginPage(
-                  TxtUser.Text, false);
-            }
-            else
-            {
-               Response.Redirect("logon.aspx");
-            }
-         }
-         catch(Exception ex)
-         {
-           lblMessage.Text = string.Format(CultureInfo.InvariantCulture, ex.Message);
-            return;
-         }
-         if (passwordVerified == true )
-         {
-            // The user is authenticated
-            // At this point, an authentication ticket is normally created
-            // This can subsequently be used to generate a GenericPrincipal
-            // object for .NET authorization purposes
-            // For details, see "How To: Use Forms authentication with 
-            // GenericPrincipal objects
-           lblMessage.Text = string.Format(CultureInfo.InvariantCulture,
-              Logon_aspx.LoginSuccess);
-           BtnRegister.Enabled = false;
-         }
-         else
-         {
-           lblMessage.Text = string.Format(CultureInfo.InvariantCulture,
-             Logon_aspx.InvalidUsernamePassword);
-         }
-      }
-   }
+    }
 }

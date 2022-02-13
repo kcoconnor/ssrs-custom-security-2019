@@ -36,15 +36,6 @@ namespace Microsoft.Samples.ReportingServices.CustomSecurity.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Server=localhost; Integrated Security=SSPI;database=UserAccounts")]
-        public string Database_ConnectionString {
-            get {
-                return ((string)(this["Database_ConnectionString"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("AD\\portaluser")]
         public string AnonymousUser {
             get {

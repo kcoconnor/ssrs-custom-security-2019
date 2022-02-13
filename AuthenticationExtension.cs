@@ -70,7 +70,7 @@ namespace Microsoft.Samples.ReportingServices.CustomSecurity
        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2123:OverrideLinkDemandsShouldBeIdenticalToBase")]
       public bool LogonUser(string userName, string password, string authority)
       {
-         return AuthenticationUtilities.VerifyPassword(userName, password);
+            return true;
       }  
       
       /// <summary>
@@ -140,36 +140,9 @@ namespace Microsoft.Samples.ReportingServices.CustomSecurity
        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:DisposeObjectsBeforeLosingScope")]
       public static bool VerifyUser(string userName)
       { 
-         bool isValid = false;
-         using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.Database_ConnectionString))
-		    {
-			    SqlCommand cmd = new SqlCommand("LookupUser", conn);
-			    cmd.CommandType = CommandType.StoredProcedure;
+    
+        return true;
 
-			    SqlParameter sqlParam = cmd.Parameters.Add("@userName",
-				    SqlDbType.VarChar,
-				    255);
-			    sqlParam.Value = userName;
-			    try
-			    {
-	          conn.Open();
-	          using (SqlDataReader reader = cmd.ExecuteReader())
-	          {
-		        // If a row exists for the user, then the user is valid.
-		        if (reader.Read())
-		          {
-			          isValid = true;
-		          }
-	          }
-          }
-          catch (Exception ex)
-          {
-	          throw new Exception(string.Format(CultureInfo.InvariantCulture,
-              CustomSecurity.VerifyError + ex.Message));
-          }
-        }
-     
-        return isValid;
       }
    }
 }
