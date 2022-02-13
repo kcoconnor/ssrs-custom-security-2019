@@ -44,18 +44,7 @@ For the sample, install Visual Studio 2019, as well as the 4.6.2 Developer Pack.
 
 # Implementation 
 
-## Step 1: Creating the UserAccounts Database
-
-The sample includes a database script, Createuserstore.sql, that enables you to set up a user store for the Forms sample in a SQL Server database.
-Script is in the CustomSecuritySample\Setup folder.
--	To create the UserAccounts database
--	Open SQL Server Management Studio, and then connect to your local instance of SQL Server. 
--	Locate the Createuserstore.sql SQL script file. The script file is contained within the sample project files. 
--	Run the query to create the UserAccounts database. 
--	Exit SQL Server Management Studio. 
-
-
-## Step 2: Building the Sample
+## Step 1: Building the Sample
 
 You must first compile and install the extension. The procedure assumes that you have installed Reporting Services to the default location: C:\Program Files\Microsoft SQL Server\MSRS13.MSSQLSERVER\Reporting Services. This location will be referred to throughout the remainder of this topic as ```<install>```.
 
@@ -67,6 +56,9 @@ To generate a strong name key file
 -	Open a Microsoft Visual Studio prompt and point to .Net Framework 4.0.
 -	Use the change directory command (CD) to change the current directory of the command prompt window to the folder where the project is saved. 
 -	At the command prompt, run the following command to generate the key file: sn -k SampleKey.snk .
+
+To compile the sample using MSBuild
+-   Run build.bat
 
 To compile the sample using Visual Studio
 -	Open CustomSecuritySample.sln in Microsoft Visual Studio. 
@@ -82,11 +74,11 @@ Debugging
 To debug the extension, you might want to attach the debugger to both ReportingServicesService.exe and Microsoft.ReportingServices.Portal.Webhost.exe. And add breakpoints to the methods implementing the interface IAuthenticationExtension2.
 
 
-## Step 3: Deployment and Configuration
+## Step 2: Deployment and Configuration
 
 The basic configurations needed for custom security extension are the same as previous releases. Following changes are needed in for web.config and rsreportserver.config present in the ReportServer folder. There is no longer a separate web.config for the reportmanager, the portal will inherit the same settings as the reportserver endpoint.
 
-To deploy the sample
+To deploy the sample (cmd.exe Run As Administrator - deploy.bat)
 -	Copy the Logon.aspx page to the ```<install>\ReportServer``` directory. 
 -	Copy Microsoft.Samples.ReportingServices.CustomSecurity.dll, Microsoft.Samples.ReportingServices.CustomSecurity.dll.config, Microsoft.Samples.ReportingServices.CustomSecurity.pdb to the ```<install>\ReportServer\bin``` directory. 
 -	Copy Microsoft.Samples.ReportingServices.CustomSecurity.dll, Microsoft.Samples.ReportingServices.CustomSecurity.dll.config, Microsoft.Samples.ReportingServices.CustomSecurity.pdb to the ```<install>\Portal``` directory. 
@@ -97,10 +89,6 @@ Modify files in the ReportServer Folder
 -	To modify the RSReportServer.config file. 
 -	Open the RSReportServer.config file with Visual Studio or a simple text editor such as Notepad. RSReportServer.config is located in the ```<install>\ReportServer``` directory. 
 -	Locate the ```<AuthenticationTypes>``` element and modify the settings as follows: 
-
-
-TODO Keep Editiing from here.
-
 	
 	```xml
 	<Authentication>
@@ -176,8 +164,10 @@ To modify the Web.config file for Report Server
 
 This will deny unauthenticated users the right to access the report server. The previously established loginUrl attribute of the ```<authentication>``` element will redirect unauthenticated requests to the Logon.aspx page.
 
+The logon.aspx page will add the impersonated anonymous user credentials in the page load.
 
-## Step 4: Some of the other changes required in the web.config file and Microsoft.ReportingServices.Portal.WebHost.exe.config
+
+## Step 3: Some of the other changes required in the web.config file and Microsoft.ReportingServices.Portal.WebHost.exe.config
 
 Adding Machine Keys
 
@@ -198,9 +188,10 @@ Adding Machine Keys
 	```
 
 You should use a validation key specific for you deployment, there are several tools to generate the keys such as Internet Information Services Manager (IIS) or the script detailed in ["Appendix A: How to generate a ```<machineKey>``` element"](https://support.microsoft.com/en-us/help/2915218/resolving-view-state-message-authentication-code-mac-errors#appendixa)
- 
 
-## Step 5: Configure Passthrough cookies
+Included you can find a powershell script, Generate-MachineKey.ps1 
+
+## Step 4: Configure Passthrough cookies
 
 The new portal and the reportserver communicate using internal soap APIs for some of its operations. When additional cookies are required to be passed from the portal to the server the PassThroughCookies properties is still available. More Details: https://msdn.microsoft.com/en-us/library/ms345241.aspx 
 In the rsreportserver.config file add following under ```<UI>```
@@ -215,9 +206,10 @@ In the rsreportserver.config file add following under ```<UI>```
 </UI>
 ``` 
 
+## Step 5: Restart the Reporting Services Service and the Portal
 
-# Code Of Conduct
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+- Open the services.msc and restart the Reporting Services service
+- Open the Reporting Services Config Utility and restart the portal
+- Open a Browser and Navigate to the /Reports directory
+- Verify the ad/portaluser or whoever you choose as the anonymous user is authenticated
 
