@@ -132,9 +132,6 @@
     <Compile Include="AuthenticationExtension.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AuthenticationUtilities.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Authorization.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -152,13 +149,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="ReportingService2010.cs" />
-    <Compile Include="Web References\localhost\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
-    <Content Include="Setup\CreateUserStore.sql" />
+    <Content Include=".gitignore" />
     <Content Include="Logon.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
@@ -177,109 +168,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="build.bat" />
+    <None Include="deploy.bat" />
+    <None Include="Generate-MachineKey.ps1" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Setup\RestoreDatabase.sql" />
-    <None Include="Web References\localhost\ActiveState.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\CacheRefreshPlan.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\CacheRefreshPlanState.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\CatalogItem.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\DataRetrievalPlan.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\DataSetDefinition.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\DataSource.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\DataSourceDefinition.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\DataSourcePrompt.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\Event.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\ExpirationDefinition.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\Extension.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\ExtensionParameter.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\ExtensionSettings.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\ItemHistorySnapshot.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\ItemParameter.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\ItemReferenceData.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\Job.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\ModelCatalogItem.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\ModelDrillthroughReport.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\ModelItem.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\ParameterValue.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\ParameterValueOrFieldReference.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\Policy.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\Property.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\localhost\ReportService2010.wsdl" />
-    <None Include="Web References\localhost\Role.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\Schedule.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\ScheduleDefinitionOrReference.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\Subscription.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\Task.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\localhost\Warning.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -310,19 +206,6 @@
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WebReferenceUrl Include="http://localhost/ReportServer_SQL2016/ReportService2010.asmx">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\localhost\</RelPath>
-      <UpdateFromURL>http://localhost/ReportServer_SQL2016/ReportService2010.asmx</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>Microsoft_Samples_ReportingServices_CustomSecurity_localhost_ReportingService2010</CachedSettingsPropName>
-    </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lib\" />
