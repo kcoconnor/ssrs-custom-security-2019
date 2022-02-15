@@ -213,3 +213,10 @@ In the rsreportserver.config file add following under ```<UI>```
 - Open a Browser and Navigate to the /Reports directory
 - Verify the ad/portaluser or whoever you choose as the anonymous user is authenticated
 
+
+# Code Of Conduct
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
+For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
+contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+
+
