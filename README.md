@@ -167,29 +167,17 @@ This will deny unauthenticated users the right to access the report server. The 
 The logon.aspx page will add the impersonated anonymous user credentials in the page load.
 
 
-## Step 3: Some of the other changes required in the web.config file and Microsoft.ReportingServices.Portal.WebHost.exe.config
+## Step 3: Update the Machine Config
 
 Adding Machine Keys
-
--	For the case of Forms authentication which requires the decryption of the Authentication cookie, both processes need to be configured with the same machine key and decryption algorithm. This was a step familiar to those who had previously setup SSRS to work on scale-out environments, but now is a requirement even for deployments on a single machine.
-
-## Reporting Services 2016
--	For example:In ```<RSPATH>\ReportServer\web.config```, add under ```<system.web>```
-
-	```xml
-		<machineKey validationKey="[YOUR KEY]" decryptionKey="[YOUR KEY]" validation="AES" decryption="AES" />
-	```
--	Then ```<RSPATH>\RSWebApp\Microsoft.ReportingServices.Portal.WebHost.exe.config```, add under ```<configuration>```
-
- 	```xml
-	 <system.web>
-		<machineKey validationKey="[YOUR KEY]" decryptionKey="[YOUR KEY]" validation="AES" decryption="AES" />
-	</system.web>
-	```
 
 You should use a validation key specific for you deployment, there are several tools to generate the keys such as Internet Information Services Manager (IIS) or the script detailed in ["Appendix A: How to generate a ```<machineKey>``` element"](https://support.microsoft.com/en-us/help/2915218/resolving-view-state-message-authentication-code-mac-errors#appendixa)
 
 Included you can find a powershell script, Generate-MachineKey.ps1 
+
+Generate an encryption key and copy the output in the machine.config file, which is located in: %windir%\Microsoft.NET\Framework64\v4.0.30319\Config. Put the <machineKey> element just above </system.web> at the bottom of the file.
+
+    <machineKey decryption="AES" decryptionKey="<your key>" validation="SHA1" validationKey="<your validation key>" />
 
 ## Step 4: Configure Passthrough cookies
 
